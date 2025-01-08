@@ -1,5 +1,4 @@
-import { v4 } from "uuid";
-import { useState, getCurrentInstance } from "#imports";
+import { useState, useId, getCurrentInstance } from "#imports";
 
 export default ({
   id,
@@ -8,7 +7,7 @@ export default ({
   fixed = 10,
   step = 1,
   defaultValue = "0",
-  onUpdate = () => {},
+  onUpdate = () => { },
 }) => {
   const uid = id || useId();
 

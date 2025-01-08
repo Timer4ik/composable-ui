@@ -7,6 +7,8 @@
 // <div v-bind="wrapper">
 //   <button @click="toggle">
 
+import { nextTick, useState, useId } from "#imports";
+
 //   </button>
 //   <div v-if="isOpened">
 //     someContent

@@ -17,7 +17,7 @@ interface ScopedSlotType {
             ref: (el: any) => void;
         };
     }
-    isOpened: Ref<boolean, boolean>
+    isOpened: boolean
     toggle: () => void,
     close: () => void
     wrapper: {
@@ -29,13 +29,19 @@ interface ScopedSlotType {
 
 declare const _default: import("vue").DefineComponent<
     import("vue").ExtractPropTypes<{
-        id: String
+        id: string
     }>,
     {
         $slots: {
-            default: (props: ScopedSlotType) => void
+            default: (props: ScopedSlotType) => void,
         }
     },
     {},
+    {},
+    {},
+    import("vue").ComponentOptionsMixin,
+    import("vue").ComponentOptionsMixin,
+    ("select" | "reachedBottom")[],
+    "select" | "reachedBottom",
 >
 export default _default;

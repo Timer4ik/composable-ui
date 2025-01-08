@@ -1,4 +1,4 @@
-import { nextTick, useState, onBeforeMount, onUnmounted } from "#imports";
+import { nextTick, useState, onBeforeMount, onUnmounted, useId } from "#imports";
 import { isConsistTarget, isReachedBottom } from "../utils";
 
 const useSelect = ({ id = "", onReachedBottom = (e) => {} }) => {

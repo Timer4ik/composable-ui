@@ -1,4 +1,4 @@
-import { computed } from "#imports";
+import { computed, watch } from "#imports";
 
 export default function usePagination(options) {
   const nextPage = () => {
@@ -61,9 +61,9 @@ export default function usePagination(options) {
       pageLinks = Array.from(
         { length: options.perView - 2 },
         (_, i) =>
-          (i =
-            i +
-            (options.currentPage.value - Math.floor((options.perView - 2) / 2)))
+        (i =
+          i +
+          (options.currentPage.value - Math.floor((options.perView - 2) / 2)))
       );
       pageLinks.unshift(start, "...");
       pageLinks.push("...", end);
@@ -124,9 +124,9 @@ export default function usePagination(options) {
       pageLinks = Array.from(
         { length: options.perView - 2 },
         (_, i) =>
-          (i =
-            i +
-            (options.currentPage.value - Math.floor((options.perView - 2) / 2)))
+        (i =
+          i +
+          (options.currentPage.value - Math.floor((options.perView - 2) / 2)))
       );
       pageLinks.unshift(start, "...");
       pageLinks.push("...", end);
