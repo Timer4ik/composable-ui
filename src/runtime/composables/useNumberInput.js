@@ -1,4 +1,4 @@
-import { useState, useId, getCurrentInstance } from "#imports";
+import { useState, useId, getCurrentInstance, watch } from "#imports";
 
 export default ({
   id,
@@ -12,6 +12,8 @@ export default ({
   const uid = id || useId();
 
   const instance = getCurrentInstance();
+
+  const clearValue = useState(uid + "-clear-value", () => defaultValue)
   const modelValue = useState(uid, () => defaultValue);
 
   const getStepped = (val, step) => {
@@ -95,7 +97,10 @@ export default ({
 
     const newValue = cleanAndFormatNumberString(value); // Форматируем, но не обновляем modelValue сразу
 
-    onUpdate?.(newValue);
+    onUpdate?.(newValue) || (() =>{
+      const number = +newValue.replace(/[^0-9\-,.]/g, '')
+      clearValue.value = number
+    })();
 
     return newValue;
   };
@@ -121,9 +126,27 @@ export default ({
     },
   });
 
+  watch(() => clearValue.value, () => {
+    onBlur({
+      target: {
+        value: String(clearValue.value)
+      }
+    })
+  })
+
   return {
     modelValue,
+    clearValue,
     onInput,
     onBlur,
+    on: {
+      input: onInput,
+      blur: onBlur
+    },
+    bind: {
+      value: modelValue.value,
+      onInput,
+      onBlur
+    }
   };
 };

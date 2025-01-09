@@ -58,12 +58,5 @@ const { onInput, onBlur, modelValue } = useNumberInput({
     }
 })
 
-watch(() => props.modelValue, () => {
-    onBlur({
-        target: {
-            value: String(props.modelValue)
-        }
-    })
-})
 
 </script>
