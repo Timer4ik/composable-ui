@@ -6,11 +6,12 @@
   <div class="dates">
     <div
       class="date"
-      v-for="(date, index) in currentCalendarDates"
+      v-for="(date, index) in dates"
       :key="index"
       :true="date?.disabled"
     >
       {{ date?.day }}
+      <!-- {{ date?.momentDate?.date() }} -->
     </div>
   </div>
 </template>
@@ -19,7 +20,7 @@
 import moment from "moment";
 import useCalendar from "../composables/useCalendar";
 
-const { selectedDate, currentCalendarDates, next, prev } = useCalendar({
+const { selectedDate, dates, next, prev } = useCalendar({
   initialDate: Date.now(),
   // forEachDate: (item) => ({
   //   ...item,
