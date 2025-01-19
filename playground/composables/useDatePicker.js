@@ -1,7 +1,5 @@
 import moment from "moment";
 
-// const nowDate = Date.now();
-
 const setRemainingDays = (isFixedNumberDays, calendarDays) => {
   if (isFixedNumberDays) {
     const totalDaysInCalendar = 42;
@@ -104,11 +102,15 @@ export default ({
     (selectedDate.value = moment(selectedDate.value).add(-1, "M"));
 
   const updateCurrentCalendarDates = (values) => {
-    currentCalendarDates.value = generateCalendar({
-      date: values,
-      isFixedNumberDays,
-      format,
-    });
+    currentCalendarDates.value =
+      forEachDate?.(
+        generateCalendar({
+          date: selectedDate.value,
+          isFixedNumberDays,
+          format,
+        })
+      ) ??
+      generateCalendar({ date: selectedDate.value, isFixedNumberDays, format });
     onUpdate?.(values);
   };
 
