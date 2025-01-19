@@ -16,11 +16,7 @@ const setDisabledStartDay = (firstWeekdayIndex) => {
   return firstWeekdayIndex - 1;
 };
 
-const generateCalendar = ({
-  date,
-  isFixedNumberDays = false,
-  format = null,
-}) => {
+const generateCalendar = ({ date, isFixedNumberDays = false }) => {
   const year = moment(date).year();
   const month = moment(date).month();
 
@@ -39,9 +35,10 @@ const generateCalendar = ({
   for (let i = disabledStartDay; i > 0; i--) {
     calendarDays.push({
       day: previousMonthLastDay - i + 1,
-      date: moment([year, month, previousMonthLastDay - i + 1])
-        .add(-1, "M")
-        .format(format),
+      momentDate: moment([year, month, previousMonthLastDay - i + 1]).add(
+        -1,
+        "M"
+      ),
       disabled: true,
     });
   }
@@ -50,7 +47,7 @@ const generateCalendar = ({
   for (let i = 1; i <= totalDaysInMonth; i++) {
     calendarDays.push({
       day: i,
-      date: moment([year, month, i]).format(format),
+      momentDate: moment([year, month, i]),
       disabled: false,
     });
   }
@@ -60,7 +57,7 @@ const generateCalendar = ({
   for (let i = 1; i <= remainingDays; i++) {
     calendarDays.push({
       day: i,
-      date: moment([year, month, i]).add(1, "M").format(format),
+      momentDate: moment([year, month, i]).add(1, "M"),
       disabled: true,
     });
   }
@@ -72,7 +69,6 @@ export default ({
   id = null,
   initialDate,
   isFixedNumberDays = false,
-  format = null,
   forEachDate = (v) => v,
   onUpdate = () => {},
   deps = [],
@@ -83,11 +79,10 @@ export default ({
   const selectedDate = useState(uid + "-selected-date", () =>
     moment(initialDate).format()
   );
-  const currentCalendarDates = useState(uid + "-current-dates", () =>
+  const dates = useState(uid + "-current-dates", () =>
     generateCalendar({
       date: selectedDate.value,
       isFixedNumberDays,
-      format,
     })?.map(forEachDate)
   );
 
@@ -96,11 +91,10 @@ export default ({
   const prev = () =>
     (selectedDate.value = moment(selectedDate.value).add(-1, "M"));
 
-  const updateCurrentCalendarDates = (values) => {
-    currentCalendarDates.value = generateCalendar({
+  const update = (values) => {
+    dates.value = generateCalendar({
       date: selectedDate.value,
       isFixedNumberDays,
-      format,
     })?.map(forEachDate);
     onUpdate?.(values);
   };
@@ -108,14 +102,14 @@ export default ({
   watch(
     () => selectedDate.value,
     (cur) => {
-      updateCurrentCalendarDates(cur);
+      update(cur);
     }
   );
 
   watch(
     () => deps,
-    (cur) => updateCurrentCalendarDates(cur)
+    (cur) => update(cur)
   );
 
-  return { selectedDate, currentCalendarDates, next, prev };
+  return { selectedDate, dates, next, prev, update };
 };
