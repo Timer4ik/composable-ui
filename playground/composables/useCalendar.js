@@ -35,9 +35,8 @@ const generateCalendar = ({ date, isFixedNumberDays = false }) => {
   for (let i = disabledStartDay; i > 0; i--) {
     calendarDays.push({
       day: previousMonthLastDay - i + 1,
-      momentDate: moment([year, month, previousMonthLastDay - i + 1]).add(
-        -1,
-        "M"
+      currentDate: new Date(
+        moment([year, month, previousMonthLastDay - i + 1]).add(-1, "M")
       ),
       disabled: true,
     });
@@ -47,7 +46,7 @@ const generateCalendar = ({ date, isFixedNumberDays = false }) => {
   for (let i = 1; i <= totalDaysInMonth; i++) {
     calendarDays.push({
       day: i,
-      momentDate: moment([year, month, i]),
+      currentDate: new Date(moment([year, month, i])),
       disabled: false,
     });
   }
@@ -57,7 +56,7 @@ const generateCalendar = ({ date, isFixedNumberDays = false }) => {
   for (let i = 1; i <= remainingDays; i++) {
     calendarDays.push({
       day: i,
-      momentDate: moment([year, month, i]).add(1, "M"),
+      currentDate: new Date(moment([year, month, i]).add(1, "M")),
       disabled: true,
     });
   }
