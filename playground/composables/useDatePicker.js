@@ -2,30 +2,48 @@ import moment from "moment";
 
 // const nowDate = Date.now();
 
-const generateCalendar = (date) => {
-  const daysInWeek = 7;
-  const totalDaysInCalendar = 42;
+const setRemainingDays = (isFixedNumberDays, calendarDays) => {
+  if (isFixedNumberDays) {
+    const totalDaysInCalendar = 42;
+    return totalDaysInCalendar - calendarDays.length;
+  }
 
-  const year = moment(date).format("Y");
-  const month = moment(date).format("M") - 1;
+  const daysInWeek = 7;
+  return daysInWeek - (calendarDays.length % daysInWeek || daysInWeek);
+};
+
+const setDisabledStartDay = (firstWeekdayIndex) => {
+  if (firstWeekdayIndex === 0) return 6;
+
+  return firstWeekdayIndex - 1;
+};
+
+const generateCalendar = ({
+  date,
+  isFixedNumberDays = false,
+  format = null,
+}) => {
+  const year = moment(date).year();
+  const month = moment(date).month();
 
   const firstDayOfMonth = moment([year, month, 1]);
 
-  const startDayOfWeek = firstDayOfMonth.day();
+  const firstWeekdayIndex = firstDayOfMonth.day();
   const totalDaysInMonth = firstDayOfMonth.daysInMonth();
 
   const calendarDays = [];
 
   const previousMonthLastDay = firstDayOfMonth
-    .clone()
     .subtract(1, "month")
     .daysInMonth();
-  const disabledStartDay = startDayOfWeek === 0 ? 6 : startDayOfWeek - 1;
+  const disabledStartDay = setDisabledStartDay(firstWeekdayIndex);
 
-  // first days
   for (let i = disabledStartDay; i > 0; i--) {
     calendarDays.push({
       day: previousMonthLastDay - i + 1,
+      date: moment([year, month, previousMonthLastDay - i + 1])
+        .add(-1, "M")
+        .format(format),
       disabled: true,
     });
   }
@@ -34,15 +52,17 @@ const generateCalendar = (date) => {
   for (let i = 1; i <= totalDaysInMonth; i++) {
     calendarDays.push({
       day: i,
+      date: moment([year, month, i]).format(format),
       disabled: false,
     });
   }
 
-  // last days
-  const remainingDays = totalDaysInCalendar - calendarDays.length;
+  // last days in month
+  const remainingDays = setRemainingDays(isFixedNumberDays, calendarDays);
   for (let i = 1; i <= remainingDays; i++) {
     calendarDays.push({
       day: i,
+      date: moment([year, month, i]).add(1, "M").format(format),
       disabled: true,
     });
   }
@@ -53,8 +73,11 @@ const generateCalendar = (date) => {
 export default ({
   id = null,
   initialDate,
+  isFixedNumberDays = false,
+  format = null,
   forEachDate = (v) => v,
   onUpdate = () => {},
+  deps = [],
 }) => {
   const uid = id || useId();
 
@@ -65,8 +88,14 @@ export default ({
   const currentCalendarDates = useState(
     uid + "-current-dates",
     () =>
-      forEachDate?.(generateCalendar(selectedDate.value)) ??
-      generateCalendar(selectedDate.value)
+      forEachDate?.(
+        generateCalendar({
+          date: selectedDate.value,
+          isFixedNumberDays,
+          format,
+        })
+      ) ??
+      generateCalendar({ date: selectedDate.value, isFixedNumberDays, format })
   );
 
   const next = () =>
@@ -74,12 +103,25 @@ export default ({
   const prev = () =>
     (selectedDate.value = moment(selectedDate.value).add(-1, "M"));
 
+  const updateCurrentCalendarDates = (values) => {
+    currentCalendarDates.value = generateCalendar({
+      date: values,
+      isFixedNumberDays,
+      format,
+    });
+    onUpdate?.(values);
+  };
+
   watch(
     () => selectedDate.value,
     (cur) => {
-      currentCalendarDates.value = generateCalendar(cur);
-      onUpdate?.(cur);
+      updateCurrentCalendarDates(cur);
     }
+  );
+
+  watch(
+    () => deps,
+    (cur) => updateCurrentCalendarDates(cur)
   );
 
   return { selectedDate, currentCalendarDates, next, prev };

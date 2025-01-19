@@ -1,6 +1,7 @@
 <template>
   <!-- <div>312</div> -->
   <button @click="prev">Prev</button>
+  {{ moment(selectedDate).format("D-M-Y") }}
   <button @click="next">Next</button>
   <div class="dates">
     <div
@@ -14,9 +15,10 @@
 </template>
 
 <script setup>
+import moment from "moment";
 import useDatePicker from "../composables/useDatePicker";
 
-const { currentCalendarDates, next, prev } = useDatePicker({
+const { selectedDate, currentCalendarDates, next, prev } = useDatePicker({
   initialDate: Date.now(),
 });
 </script>
