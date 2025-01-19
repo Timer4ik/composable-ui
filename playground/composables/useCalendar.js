@@ -83,17 +83,12 @@ export default ({
   const selectedDate = useState(uid + "-selected-date", () =>
     moment(initialDate).format()
   );
-  const currentCalendarDates = useState(
-    uid + "-current-dates",
-    () =>
-      forEachDate?.(
-        generateCalendar({
-          date: selectedDate.value,
-          isFixedNumberDays,
-          format,
-        })
-      ) ??
-      generateCalendar({ date: selectedDate.value, isFixedNumberDays, format })
+  const currentCalendarDates = useState(uid + "-current-dates", () =>
+    generateCalendar({
+      date: selectedDate.value,
+      isFixedNumberDays,
+      format,
+    })?.map(forEachDate)
   );
 
   const next = () =>
@@ -102,15 +97,11 @@ export default ({
     (selectedDate.value = moment(selectedDate.value).add(-1, "M"));
 
   const updateCurrentCalendarDates = (values) => {
-    currentCalendarDates.value =
-      forEachDate?.(
-        generateCalendar({
-          date: selectedDate.value,
-          isFixedNumberDays,
-          format,
-        })
-      ) ??
-      generateCalendar({ date: selectedDate.value, isFixedNumberDays, format });
+    currentCalendarDates.value = generateCalendar({
+      date: selectedDate.value,
+      isFixedNumberDays,
+      format,
+    })?.map(forEachDate);
     onUpdate?.(values);
   };
 

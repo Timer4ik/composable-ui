@@ -8,6 +8,7 @@
       class="date"
       v-for="(date, index) in currentCalendarDates"
       :key="index"
+      :true="date?.disabled"
     >
       {{ date?.day }}
     </div>
@@ -16,10 +17,14 @@
 
 <script setup>
 import moment from "moment";
-import useDatePicker from "../composables/useDatePicker";
+import useCalendar from "../composables/useCalendar";
 
-const { selectedDate, currentCalendarDates, next, prev } = useDatePicker({
+const { selectedDate, currentCalendarDates, next, prev } = useCalendar({
   initialDate: Date.now(),
+  // forEachDate: (item) => ({
+  //   ...item,
+  //   disabled: true,
+  // }),
 });
 </script>
 
