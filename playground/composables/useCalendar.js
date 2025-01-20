@@ -107,7 +107,9 @@ export default ({
 
   watch(
     () => deps,
-    (cur) => update(cur)
+    () => {
+      update(deps);
+    }
   );
 
   return { selectedDate, dates, next, prev, update };
