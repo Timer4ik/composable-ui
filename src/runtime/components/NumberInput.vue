@@ -15,7 +15,6 @@
 
 <script setup>
 import useNumberInput from "../composables/useNumberInput";
-import { watch } from "vue";
 
 const emits = defineEmits({
     "update:modelValue": null

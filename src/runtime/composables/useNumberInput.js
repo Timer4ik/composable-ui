@@ -1,4 +1,4 @@
-import { useState, useId, getCurrentInstance, watch } from "#imports";
+import { useState, useId, getCurrentInstance, watch, computed } from "#imports";
 
 export default ({
   id,
@@ -143,11 +143,11 @@ export default ({
       input: onInput,
       blur: onBlur
     },
-    bind: {
-      value: modelValue,
-      modelValue: modelValue,
+    bind: computed(() => ({
+      value: modelValue.value,
+      modelValue: modelValue.value,
       onInput,
       onBlur
-    }
+    }))
   };
 };
