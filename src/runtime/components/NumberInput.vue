@@ -6,6 +6,7 @@
         }"
         :bind="{
             value: modelValue,
+            modelValue:modelValue,
             onInput,
             onBlur
         }"
