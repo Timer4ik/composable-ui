@@ -4,7 +4,8 @@ interface ScopedSlotType {
         blur: (event: any) => void
     }
     bind: {
-        value: Ref<string, string>
+        modelValue: any
+        value: any
         onInput: (event: any) => void
         onBlur: (event: any) => void
     }
