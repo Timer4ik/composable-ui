@@ -144,8 +144,8 @@ export default ({
       blur: onBlur
     },
     bind: {
-      value: modelValue.value,
-      modelValue: modelValue.value,
+      value: modelValue,
+      modelValue: modelValue,
       onInput,
       onBlur
     }
