@@ -145,6 +145,7 @@ export default ({
     },
     bind: {
       value: modelValue.value,
+      modelValue: modelValue.value,
       onInput,
       onBlur
     }
