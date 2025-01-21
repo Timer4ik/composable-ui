@@ -135,14 +135,7 @@ export default ({
   })
 
   return {
-    modelValue,
     clearValue,
-    onInput,
-    onBlur,
-    on: {
-      input: onInput,
-      blur: onBlur
-    },
     bind: computed(() => ({
       value: modelValue.value,
       modelValue: modelValue.value,

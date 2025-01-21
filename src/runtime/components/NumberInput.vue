@@ -4,12 +4,7 @@
             input: onInput,
             blur: onBlur
         }"
-        :bind="{
-            value: modelValue,
-            modelValue:modelValue,
-            onInput,
-            onBlur
-        }"
+        :bind="bind"
     />
 </template>
 
@@ -43,7 +38,7 @@ const props = defineProps({
     },
 })
 
-const { onInput, onBlur, modelValue } = useNumberInput({
+const { bind } = useNumberInput({
     id: props.id,
     min: props.min,
     max: props.max,
