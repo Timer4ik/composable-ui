@@ -17,8 +17,8 @@ const setDisabledStartDay = (firstWeekdayIndex) => {
 };
 
 const generateCalendar = ({ date, isFixedNumberDays = false }) => {
-  const year = moment(date).year();
-  const month = moment(date).month();
+  const year = new Date(date).getFullYear();
+  const month = new Date(date).getMonth();
 
   const firstDayOfMonth = moment([year, month, 1]);
 
@@ -37,7 +37,7 @@ const generateCalendar = ({ date, isFixedNumberDays = false }) => {
       day: previousMonthLastDay - i + 1,
       currentDate: new Date(
         moment([year, month, previousMonthLastDay - i + 1]).add(-1, "M")
-      ),
+      ).valueOf(),
       disabled: true,
     });
   }
@@ -46,7 +46,7 @@ const generateCalendar = ({ date, isFixedNumberDays = false }) => {
   for (let i = 1; i <= totalDaysInMonth; i++) {
     calendarDays.push({
       day: i,
-      currentDate: new Date(moment([year, month, i])),
+      currentDate: new Date(moment([year, month, i])).valueOf(),
       disabled: false,
     });
   }
@@ -56,7 +56,7 @@ const generateCalendar = ({ date, isFixedNumberDays = false }) => {
   for (let i = 1; i <= remainingDays; i++) {
     calendarDays.push({
       day: i,
-      currentDate: new Date(moment([year, month, i]).add(1, "M")),
+      currentDate: new Date(moment([year, month, i]).add(1, "M")).valueOf(),
       disabled: true,
     });
   }

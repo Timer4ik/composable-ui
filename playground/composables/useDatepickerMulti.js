@@ -1,5 +1,3 @@
-import moment from "moment";
-
 export default ({ id = null, defaultDates = [] } = {}) => {
   const uid = id || useId();
 
@@ -12,7 +10,7 @@ export default ({ id = null, defaultDates = [] } = {}) => {
 
   const setCurrentDates = (date) => {
     // date in milliseconds
-    lastSelectedDates.value.push(moment(date).unix() * 1000);
+    lastSelectedDates.value.push(new Date(date).valueOf());
     startDate.value = lastSelectedDates.value[0];
     endDate.value = null;
 
