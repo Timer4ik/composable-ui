@@ -24,9 +24,7 @@
 
 <script setup>
 import Calendar from "../../src/runtime/components/Calendar.vue";
-
 import moment from "moment";
-// import useCalendar from "../composables/useCalendar";
 import useDatepicker from "~/composables/useDatepicker";
 
 const { isShow, toggleShow } = useShow();
@@ -35,14 +33,6 @@ const { currentDate, setCurrentDate } = useDatepicker();
 const updateDate = (date) => {
   setCurrentDate(moment(date).format("DD-MM-Y"));
 };
-
-// const { selectedDate, dates, next, prev } = useCalendar({
-//   // initialDate: Date.now(),
-//   // forEachDate: (item) => ({
-//   //   ...item,
-//   //   disabled: true,
-//   // }),
-// });
 </script>
 
 <style lang="css">

@@ -1,35 +1,44 @@
 <template>
-  <div>
-    <input class="" @click="toggleShow" :value="currentDate" readonly />
-    <div class="calendar" v-if="isShow">
-      <button @click="prev">Prev</button>
-      {{ moment(selectedDate).format("MMM Y") }}
-      <button @click="next">Next</button>
-      <div class="dates">
-        <div
-          class="date"
-          :class="{ disabled: date?.disabled }"
-          v-for="(date, index) in dates"
-          :data-date="moment(date?.date).format('Y-MM-DD')"
-          :key="index"
-          @click="!date?.disabled && updateDate(date?.date)"
-        >
-          {{ date?.day }}
+  <Calendar
+    :forEachDate="
+      (item) => ({
+        ...item,
+        disabled: setDisabledDate(moment(item?.date).format('Y-MM-DD'), events),
+      })
+    "
+  >
+    <template #default="{ selectedDate, dates, next, prev }">
+      <input class="" @click="toggleShow" :value="currentDate" readonly />
+      <div class="calendar" v-if="isShow">
+        <button @click="prev">Prev</button>
+        {{ moment(selectedDate).format("MMM Y") }}
+        <button @click="next">Next</button>
+        <div class="dates">
+          <div
+            class="date"
+            :class="{ disabled: date?.disabled }"
+            v-for="(date, index) in dates"
+            :data-date="moment(date?.date).format('Y-MM-DD')"
+            :key="index"
+            @click="!date?.disabled && updateDate(date?.date)"
+          >
+            {{ date?.day }}
+          </div>
         </div>
       </div>
-    </div>
-    <div class="" v-for="event in showEvents">
-      <strong class="">{{ event?.name }} {{ event?.date }}</strong>
-      <div>{{ event?.description }}</div>
-      <br />
-    </div>
+    </template>
+  </Calendar>
+  <div class="" v-for="event in showEvents">
+    <strong class="">{{ event?.name }} {{ event?.date }}</strong>
+    <div>{{ event?.description }}</div>
+    <br />
   </div>
 </template>
 
 <script setup>
+import Calendar from "../../src/runtime/components/Calendar.vue";
 import moment from "moment";
 import debounce from "lodash/debounce";
-import useCalendar from "../composables/useCalendar";
 import useDatepicker from "~/composables/useDatepicker";
 
 const { isShow, toggleShow } = useShow();
@@ -97,17 +106,6 @@ watch(
     );
   }, 400)
 );
-
-const { selectedDate, dates, next, prev } = useCalendar({
-  initialDate: Date.now(),
-  forEachDate: (item) => ({
-    ...item,
-    disabled: setDisabledDate(
-      moment(item?.date).format("Y-MM-DD"),
-      events.value
-    ),
-  }),
-});
 </script>
 
 <style lang="css">

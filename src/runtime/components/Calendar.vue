@@ -3,6 +3,7 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
 import useCalendar from "../composables/useCalendar";
 
 const props = defineProps({
@@ -10,7 +11,7 @@ const props = defineProps({
     type: [Number, String],
   },
   initialDate: {
-    type: Date,
+    type: [Date, Number],
     default: Date.now(),
   },
   isFixedNumberDays: {
@@ -29,7 +30,10 @@ const props = defineProps({
   },
 });
 
+const deps = computed(() => props.deps);
+
 const { selectedDate, dates, next, prev, update } = useCalendar({
   ...props,
+  deps,
 });
 </script>

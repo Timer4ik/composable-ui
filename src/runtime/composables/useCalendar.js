@@ -106,12 +106,9 @@ export default ({
     }
   );
 
-  watch(
-    () => deps,
-    () => {
-      update(deps);
-    }
-  );
+  watch(deps, () => {
+    update(deps);
+  });
 
   return { selectedDate, dates, next, prev, update };
 };
