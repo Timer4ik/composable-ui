@@ -6,3 +6,7 @@
   <h3>Календарь с выбором дат, где есть мероприятия</h3>
   <DatepickerWithDate />
 </template>
+
+<script setup>
+import Calendar from "../../src/runtime/components/Calendar.vue";
+</script>

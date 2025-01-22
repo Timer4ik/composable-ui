@@ -10,9 +10,9 @@
           class="date"
           :class="{ disabled: date?.disabled }"
           v-for="(date, index) in dates"
-          :data-date="moment(date?.currentDate).format('Y-MM-DD')"
+          :data-date="moment(date?.date).format('Y-MM-DD')"
           :key="index"
-          @click="!date?.disabled && updateDate(date?.currentDate)"
+          @click="!date?.disabled && updateDate(date?.date)"
         >
           {{ date?.day }}
         </div>
@@ -103,7 +103,7 @@ const { selectedDate, dates, next, prev } = useCalendar({
   forEachDate: (item) => ({
     ...item,
     disabled: setDisabledDate(
-      moment(item?.currentDate).format("Y-MM-DD"),
+      moment(item?.date).format("Y-MM-DD"),
       events.value
     ),
   }),

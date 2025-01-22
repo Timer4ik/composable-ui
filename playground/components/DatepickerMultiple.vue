@@ -11,7 +11,7 @@
           :class="{ range: date?.inRange }"
           v-for="(date, index) in dates"
           :key="index"
-          @click="updateDate(date?.currentDate)"
+          @click="updateDate(date?.date)"
         >
           {{ date?.day }}
         </div>
@@ -67,7 +67,7 @@ const {
   initialDate: Date.now(),
   forEachDate: (item) => ({
     ...item,
-    inRange: setInRange(item?.currentDate),
+    inRange: setInRange(item?.date),
   }),
   deps: computed(() => startDate.value),
 });
