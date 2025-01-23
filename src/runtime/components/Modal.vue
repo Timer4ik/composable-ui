@@ -5,6 +5,7 @@
 </template>
 
 <script setup>
+import { defineProps } from "vue";
 import useModal from "../composables/useModal";
 
 const props = defineProps({

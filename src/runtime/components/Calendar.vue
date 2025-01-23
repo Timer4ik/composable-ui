@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { defineProps, computed } from "vue";
 import useCalendar from "../composables/useCalendar";
 
 const props = defineProps({
