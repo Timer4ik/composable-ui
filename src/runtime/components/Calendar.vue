@@ -32,7 +32,7 @@ const props = defineProps({
 
 const deps = computed(() => props.deps);
 
-const { selectedDate, dates, next, prev, update } = useCalendar({
+const { calendarPageDate, dates, next, prev, update } = useCalendar({
   ...props,
   deps,
 });

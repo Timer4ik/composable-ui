@@ -76,31 +76,31 @@ export default ({
   const uid = id || useId();
 
   // this not state date, it is show current date for datepicker
-  const selectedDate = useState(uid + "-selected-date", () =>
+  const calendarPageDate = useState(uid + "-selected-date", () =>
     new Date(initialDate).valueOf()
   );
   const dates = useState(uid + "-current-dates", () =>
     generateCalendar({
-      date: selectedDate.value,
+      date: calendarPageDate.value,
       isFixedNumberDays,
     })?.map(forEachDate)
   );
 
   const next = () =>
-    (selectedDate.value = moment(selectedDate.value).add(1, "M"));
+    (calendarPageDate.value = moment(calendarPageDate.value).add(1, "M"));
   const prev = () =>
-    (selectedDate.value = moment(selectedDate.value).add(-1, "M"));
+    (calendarPageDate.value = moment(calendarPageDate.value).add(-1, "M"));
 
   const update = (values) => {
     dates.value = generateCalendar({
-      date: selectedDate.value,
+      date: calendarPageDate.value,
       isFixedNumberDays,
     })?.map(forEachDate);
     onUpdate?.(values);
   };
 
   watch(
-    () => selectedDate.value,
+    () => calendarPageDate.value,
     (cur) => {
       update(cur);
     }
@@ -113,5 +113,5 @@ export default ({
     }
   );
 
-  return { selectedDate, dates, next, prev, update };
+  return { calendarPageDate, dates, next, prev, update };
 };

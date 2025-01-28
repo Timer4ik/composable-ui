@@ -7,11 +7,11 @@
       })
     "
   >
-    <template #default="{ selectedDate, dates, next, prev }">
+    <template #default="{ calendarPageDate, dates, next, prev }">
       <input class="" @click="toggleShow" :value="currentDate" readonly />
       <div class="calendar" v-if="isShow">
         <button @click="prev">Prev</button>
-        {{ moment(selectedDate).format("MMM Y") }}
+        {{ moment(calendarPageDate).format("MMM Y") }}
         <button @click="next">Next</button>
         <div class="dates">
           <div

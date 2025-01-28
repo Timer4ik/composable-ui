@@ -1,5 +1,5 @@
 interface ScopedSlotType {
-  selectedDate: Date;
+  calendarPageDate: Date;
   dates: Date[];
   next: () => void;
   prev: () => void;
