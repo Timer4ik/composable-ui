@@ -1,7 +1,5 @@
 <template>
-  <slot
-    v-bind="{ open, close, isActive, toggle, name, data, callEvent, onEvent }"
-  />
+  <slot v-bind="{ open, close, isActive, toggle, name, data, emit, on }" />
 </template>
 
 <script setup>
@@ -14,7 +12,7 @@ const props = defineProps({
   initialIsActive: Boolean,
 });
 
-const { open, close, isActive, toggle, name, data, callEvent, onEvent } =
+const { open, close, isActive, toggle, name, data, emit, on } =
   useModal({
     name: props.name,
     initialData: props.initialData,

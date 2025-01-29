@@ -22,7 +22,7 @@ export default function ({
     open,
     close,
     toggle,
-    callEvent,
+    emit: emit,
   };
 
   function on(event, callback) {
