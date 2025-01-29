@@ -18,14 +18,14 @@ export default function ({
     isActive,
     data,
     events,
-    onEvent,
+    on,
     open,
     close,
     toggle,
     callEvent,
   };
 
-  function onEvent(event, callback) {
+  function on(event, callback) {
     events.value[event] = callback;
     return context;
   }
@@ -46,7 +46,7 @@ export default function ({
     return context;
   }
 
-  function callEvent(name, ...attrs) {
+  function emit(name, ...attrs) {
     events.value[name](...attrs);
     return context;
   }
@@ -58,7 +58,7 @@ export default function ({
     toggle,
     name: uName,
     data: data,
-    callEvent,
-    onEvent,
+    emit,
+    on,
   };
 }
