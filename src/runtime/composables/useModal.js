@@ -1,21 +1,17 @@
 import { useState, useId } from "#imports";
-import { v4 } from "uuid"
 
 export default function ({
   name = "",
   initialData = null,
   initialIsActive = false,
-  index = null,
 }) {
-  const uIndex = index || v4()
-
   const uName = name || useId();
 
-  const isActive = useState(`${uName}-${uIndex}-modal-active`, () => initialIsActive);
+  const isActive = useState(`${uName}-modal-active`, () => initialIsActive);
 
-  const data = useState(`${uName}-${uIndex}-modal-data`, () => initialData);
+  const data = useState(`${uName}-modal-data`, () => initialData);
 
-  const events = useState(`${uName}-${uIndex}-modal-events`, () => events);
+  const events = useState(`${uName}-modal-onsubmit`, () => ({}));
 
   const context = {
     name: uName,
