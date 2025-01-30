@@ -1,6 +1,6 @@
 {
   "name": "composable-ui",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "Composable-ui is a nuxt module for the rapid development of nuxt applications and UI components.It is a minimal toolkit containing the main functions of UI elements",
   "repository": "https://github.com/Timer4ik/composable-ui",
   "license": "MIT",
@@ -31,7 +31,8 @@
   "private": false,
   "dependencies": {
     "@nuxt/kit": "^3.15.1",
-    "@nuxt/types": "^2.18.1"
+    "@nuxt/types": "^2.18.1",
+    "uuid": "^11.0.5"
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.7.0",
