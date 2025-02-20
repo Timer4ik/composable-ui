@@ -2,11 +2,11 @@ interface PreContent {
   name: string;
   isActive: boolean;
   data: any;
-  onEvent: (event: string, callback: Function) => Context;
+  on: (event: string, callback: Function) => Context;
   open: (data: any) => Context;
   close: (data: any) => Context;
   toggle: (data: any) => Context;
-  callEvent: (data: any) => Context;
+  emit: (data: any) => Context;
 }
 
 interface Context extends PreContent {
