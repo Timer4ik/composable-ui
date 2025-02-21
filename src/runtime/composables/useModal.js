@@ -47,7 +47,7 @@ export default function ({
   }
 
   function emit(name, ...attrs) {
-    events.value[name](...attrs);
+    events?.value?.[name]?.(...attrs);
     return context;
   }
 

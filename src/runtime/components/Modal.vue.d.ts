@@ -6,14 +6,14 @@ interface PreContent {
   open: (data: any) => Context;
   close: (data: any) => Context;
   toggle: (data: any) => Context;
-  emit: (data: any) => Context;
+  emit: (name: any) => Context;
 }
 
 interface Context extends PreContent {
   events: Function;
 }
 
-interface ScopedSlotType extends PreContent {}
+interface ScopedSlotType extends PreContent { }
 
 declare const _default: import("vue").DefineComponent<
   import("vue").ExtractPropTypes<{
