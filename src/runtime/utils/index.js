@@ -86,8 +86,8 @@ export const getDottedText = (text, amount = 120) => {
 export const isReachedBottom = (event) => {
   const isReachedBottom =
     event.target.scrollHeight -
-      event.target.clientHeight -
-      event.target.scrollTop <
+    event.target.clientHeight -
+    event.target.scrollTop <
     100;
   return isReachedBottom;
 };
@@ -97,3 +97,15 @@ export const isConsistTarget = (element, target) => {
     return true;
   }
 };
+
+export const FILE_FORMATS = {
+  'image/jpeg': 'image/jpeg',
+  'image/png': 'image/png',
+  'image/svg': 'image/svg',
+  '.pdf': '.pdf',
+  '.word': '.word',
+  '.doc': '.doc',
+  '.rtf': '.rtf',
+  '.xls': '.xls',
+  '.xlsx': '.xlsx',
+}
