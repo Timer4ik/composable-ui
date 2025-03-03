@@ -98,7 +98,7 @@ export const isConsistTarget = (element, target) => {
   }
 };
 
-export const FILE_FORMATS = {
+export const fileFormats = {
   'image/jpeg': 'image/jpeg',
   'image/png': 'image/png',
   'image/svg': 'image/svg',
